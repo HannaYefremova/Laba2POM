@@ -1,9 +1,8 @@
 package UI;
 
 import Framework.MainPage;
-import Framework.Pages.ProductsPage;
+import Framework.ProductsPage;
 import org.assertj.core.api.SoftAssertions;
-import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
 import java.util.List;

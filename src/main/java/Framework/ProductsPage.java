@@ -1,6 +1,5 @@
-package Framework.Pages;
+package Framework;
 
-import Framework.BasePage;
 import Framework.Components.ProductComponent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -18,8 +17,7 @@ public class ProductsPage extends BasePage {
     private final By endTextLocator = By.xpath("//div[@class='col-sm-6 text-end']");
     private final By sortByLocator = By.id("input-sort");
     private final By sortByNameAZLocator = By.xpath("//select[@id='input-sort']/option[2]");
-    private final By sortByPriceLowHightLocator = By.xpath("//select[@id='input-sort']/option[4]");
-    private final By getProductItemsPriceLocator = By.xpath("//div[@id='product-list']//span[@class='price-new']");
+    private final By sortByPriceLowHigthLocator = By.xpath("//select[@id='input-sort']/option[4]");
 
 
     public List<ProductComponent> getAllProducts() {
@@ -92,7 +90,7 @@ public class ProductsPage extends BasePage {
     }
     public ProductsPage clickSortByPriceLowHight() {
         getDriver().findElement(sortByLocator).click();
-        getDriver().findElement(sortByPriceLowHightLocator).click();
+        getDriver().findElement(sortByPriceLowHigthLocator).click();
         return this;
     }
     public List<Double> getProductItemsPrice(){

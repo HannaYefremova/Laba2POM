@@ -6,10 +6,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
 import java.util.Iterator;
 import java.util.List;
 
@@ -38,16 +35,6 @@ public class BasePage {
 
     public List<WebElement> findAll(By locator) {
         return getDriver().findElements(locator);
-    }
-
-    public WebElement waitUntilVisible(By locator, int seconds) {
-        return new WebDriverWait(getDriver(), Duration.ofSeconds(seconds))
-                .until(ExpectedConditions.presenceOfElementLocated(locator));
-    }
-
-    public void scroll(int pixels) {
-        JavascriptExecutor jse = (JavascriptExecutor) getDriver();
-        jse.executeScript("window.scrollBy(0," + pixels + ")");
     }
 
     public void clickOnLocator(By locator) {
