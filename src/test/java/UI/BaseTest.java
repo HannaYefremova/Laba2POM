@@ -10,7 +10,6 @@ import org.testng.annotations.BeforeMethod;
 
 public class BaseTest {
 
-    SoftAssertions softAssertions;
 
     @BeforeMethod(alwaysRun = true)
     public void setUp() {
@@ -19,7 +18,7 @@ public class BaseTest {
         driver.get("https://demo.opencart.com/");
         driver.manage().window().maximize();
         BasePage.setDriver(driver);
-        softAssertions= new SoftAssertions();
+
     }
 
     @AfterMethod(alwaysRun = true)

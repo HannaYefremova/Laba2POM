@@ -20,6 +20,8 @@ public class BrandsTest extends BaseTest {
 
         List<String> actualBrandsList = Arrays.asList("Apple", "Canon", "Hewlett-Packard", "HTC", "Palm", "Sony");
 
+
+
         for (WebElement element : brandsList) {
             Assertions.assertThat(actualBrandsList)
                     .as("error name")

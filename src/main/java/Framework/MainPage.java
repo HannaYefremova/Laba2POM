@@ -1,5 +1,6 @@
 package Framework;
 
+import Framework.Pages.ProductsPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -27,18 +28,18 @@ public class MainPage extends BasePage {
         getDriver().findElement(registerDropdownLocator).click();
         return new RegistrationPage();
     }
-    public DesktopsPage clickShowAllDesktops(){
+    public ProductsPage clickShowAllDesktops(){
         hoverOverElement(desktopsButtonLocator);
         clickOnLocator(showAllDesktopsLocator);
-        return new DesktopsPage();
+        return new ProductsPage();
     }
 
-    public IphonePage clickOnTheIphoneCard(){
+    public ProductPage clickOnTheIphoneCard(){
         getDriver().findElement(iPhoneLocator).click();
-        return new IphonePage();
+        return new ProductPage();
     }
-    public CameraPage clickOnTheCameraButton(){
+    public ProductsPage clickOnTheCameraButton(){
         getDriver().findElement(cameraButtonLocator).click();
-        return new CameraPage();
+        return new ProductsPage();
     }
 }

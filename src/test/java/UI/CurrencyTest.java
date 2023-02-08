@@ -1,12 +1,14 @@
 package UI;
 
-import Framework.IphonePage;
+import Framework.ProductPage;
 import Framework.MainPage;
+import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
 public class CurrencyTest extends BaseTest {
 
     private final MainPage mainPage = new MainPage();
+    private final SoftAssertions softAssertions = new SoftAssertions();
 
     @Test
     public void correctPriceInDifferentCurrencyTest() {
@@ -14,21 +16,21 @@ public class CurrencyTest extends BaseTest {
         if (!currentCurrency.equals("$")) {
             mainPage.switchToDollarCurrency();
         }
-        IphonePage iphonePage = mainPage.clickOnTheIphoneCard();
+        ProductPage iphonePage = mainPage.clickOnTheIphoneCard();
         String iphonePrice = iphonePage
-                .getIphonePrice();
+                .getPrice();
         softAssertions.assertThat(iphonePrice)
                 .as("Price is not equals expected")
                 .contains("123.20");
 
         mainPage.switchToEuroCurrency();
-        iphonePrice = iphonePage.getIphonePrice();
+        iphonePrice = iphonePage.getPrice();
 
         softAssertions.assertThat(iphonePrice)
                 .as("Price is not equals expected")
                 .contains("106.04");
         mainPage.switchToPoundCurrency();
-        iphonePrice = iphonePage.getIphonePrice();
+        iphonePrice = iphonePage.getPrice();
         softAssertions.assertThat(iphonePrice)
                 .as("Price is not equals expected")
                 .contains("95.32");

@@ -1,23 +1,26 @@
 package UI;
 
-import Framework.CameraPage;
 import Framework.MainPage;
+import Framework.Pages.ProductsPage;
+import org.assertj.core.api.SoftAssertions;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
 import java.util.List;
 
-public class CameraTest extends BaseTest{
+public class CameraTest extends BaseTest {
 
     private final MainPage mainPage = new MainPage();
+    private final SoftAssertions softAssertions = new SoftAssertions();
 
     @Test
-    public void checkProductItemsCount(){
-        CameraPage cameraPage = mainPage.clickOnTheCameraButton();
+    public void checkProductItemsCount() {
 
-        List<WebElement> productsCountValue = cameraPage
-                .getProductItems();
-        softAssertions.assertThat(productsCountValue.size())
+        ProductsPage cameraPage = mainPage.clickOnTheCameraButton();
+
+        int productsCountValue = cameraPage
+                .getProductsCountValue();
+        softAssertions.assertThat(productsCountValue)
                 .as("Products count value is not equals expected")
                 .isEqualTo(2);
 

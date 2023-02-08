@@ -1,14 +1,14 @@
 package UI;
 
-import Framework.DesktopsPage;
 import Framework.MainPage;
 import org.assertj.core.api.Assertions;
 import org.testng.annotations.Test;
 
 public class RegistrationTest extends BaseTest {
     private final MainPage mainPage = new MainPage();
+
     @Test
-    public void registrationAccount(){
+    public void registrationAccount() {
 
         String pageName = mainPage.clickRegister()
                 .enterFirstName("Hanna")
