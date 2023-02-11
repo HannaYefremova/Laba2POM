@@ -1,11 +1,10 @@
 package UI;
 
+import Framework.Components.ProductComponent;
 import Framework.MainPage;
 import Framework.ProductsPage;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
-
-import java.util.List;
 
 public class CameraTest extends BaseTest {
 
@@ -17,37 +16,21 @@ public class CameraTest extends BaseTest {
 
         ProductsPage cameraPage = mainPage.clickOnTheCameraButton();
 
-        int productsCountValue = cameraPage
-                .getProductsCountValue();
+        int productsCountValue = cameraPage.GetProductList().getProductsCountValue();
         softAssertions.assertThat(productsCountValue)
                 .as("Products count value is not equals expected")
                 .isEqualTo(2);
 
-        List<String> productItemNames = cameraPage
-                .getProductItemsName();
-        softAssertions.assertThat(productItemNames.get(0))
-                .as("Product name is not equals expected")
-                .isEqualTo("Canon EOS 5D");
-
-        List<String> productItemOldPrices = cameraPage
-                .getProductItemsOldPrice();
-        softAssertions.assertThat(productItemOldPrices.get(0))
+        ProductComponent canon = cameraPage.GetProductList().getProductByProductName("Canon EOS 5D");
+        softAssertions.assertThat(canon.getProductOldPrice())
                 .as("Product old price is not equals expected")
                 .contains("122.00");
-
-        List<String> productItemNewPrices = cameraPage
-                .getProductItemsNewPrice();
-        softAssertions.assertThat(productItemNewPrices.get(0))
+        softAssertions.assertThat(canon.getProductNewPrice())
                 .as("Product new price is not equals expected")
                 .contains("98.00");
 
-        softAssertions.assertThat(productItemNames.get(1))
-                .as("Product name is not equals expected")
-                .isEqualTo("Nikon D300");
-
-        List<String> productItemTaxPrices = cameraPage
-                .getProductItemsTaxPrice();
-        softAssertions.assertThat(productItemTaxPrices.get(1))
+        ProductComponent nikon = cameraPage.GetProductList().getProductByProductName("Nikon D300");
+        softAssertions.assertThat(nikon.getProductTaxPrice())
                 .as("Product tax price is not equals expected")
                 .contains("80.00");
         softAssertions.assertAll();

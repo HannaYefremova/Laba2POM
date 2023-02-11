@@ -2,6 +2,7 @@ package UI;
 
 import Framework.BasePage;
 import Framework.MainPage;
+import Framework.ProductsPage;
 import org.assertj.core.api.Assertions;
 import org.testng.annotations.Test;
 
@@ -13,69 +14,47 @@ public class DesktopsTest extends BaseTest {
 
     @Test
     public void checkShowLimitSelectedValue() {
-        String showLimitSelectedValue = mainPage.clickShowAllDesktops()
-                .getShowLimitSelectedValue();
+
+        ProductsPage productsPage = mainPage.clickShowAllDesktops();
+
+        String showLimitSelectedValue = productsPage.GetProductFilter().getValueFromCountDropDown();
         Assertions.assertThat(showLimitSelectedValue)
                 .as("Show limit selected value is not equals expected")
                 .isEqualTo("10");
-    }
 
-    @Test
-    public void checkSortBySelectedValue() {
-        String selectedSortByValue = mainPage.clickShowAllDesktops()
-                .getSelectedSortByValue();
+        String selectedSortByValue = productsPage.GetProductFilter().getValueFromSortByDropdown();
         Assertions.assertThat(selectedSortByValue)
                 .as("Selected sort By value is not equals expected")
                 .isEqualTo("Default");
-    }
 
-    @Test
-    public void checkProductItemsCount() {
-        int productsCountValue = mainPage.clickShowAllDesktops()
-                .getProductsCountValue();
+        int productsCountValue = productsPage.GetProductList().getProductsCountValue();
         Assertions.assertThat(productsCountValue)
                 .as("Products count value is not equals expected")
                 .isEqualTo(10);
-    }
 
-    @Test
-    public void checkShowItemsCountsAfter25ElementsClick() {
-        int productsCountValue = mainPage.clickShowAllDesktops()
-                .clickShowItem25()
-                .getProductsCountValue();
+        productsPage.GetProductFilter().selectFromCountDropDown("25");
+        productsCountValue = productsPage.GetProductList().getProductsCountValue();
         Assertions.assertThat(productsCountValue)
                 .as("Products count value is not equals expected")
                 .isEqualTo(12);
-    }
 
-    @Test
-    public void checkShowEndTextAfter25ElementsClick() {
-        String endText = mainPage.clickShowAllDesktops()
-                .clickShowItem25()
-                .getEndText();
+        String endText = productsPage.GetProductFilter().getEndText();
         Assertions.assertThat(endText)
                 .as("End text value is not equals expected")
                 .isEqualTo("Showing 1 to 12 of 12 (1 Pages)");
-    }
 
-    @Test
-    public void checkProductsSortAZ() {
-        List<String> productItemsName = mainPage.clickShowAllDesktops()
-                .clickSortByNameAZ()
-                .getProductItemsName();
-        Boolean result = BasePage.isStringListSorted(productItemsName);
-        Assertions.assertThat(result)
+        productsPage.GetProductFilter().selectFromSortByDropdown("Name (A - Z)");
+        List<String> productItemsName = productsPage.GetProductList().getProductNames();
+        Boolean sortedByNameResult = BasePage.isStringListSorted(productItemsName);
+        Assertions.assertThat(sortedByNameResult)
                 .as("Product list is not sorted correctly")
                 .isEqualTo(true);
-    }
 
-    @Test
-    public void checkProductsSortPriceLowToHeight() {
-        List<Double> productItemsPrice = mainPage.clickShowAllDesktops()
-                .clickSortByPriceLowHight()
-                .getProductItemsPrice();
-        Boolean result = BasePage.isDoubleListSorted(productItemsPrice);
-        Assertions.assertThat(result)
+        productsPage.GetProductFilter().selectFromSortByDropdown("Price (Low > High)");
+
+        List<Double> productItemsPrice = productsPage.GetProductList().getProductPrices();
+        Boolean sortedByPriceResult = BasePage.isDoubleListSorted(productItemsPrice);
+        Assertions.assertThat(sortedByPriceResult)
                 .as("Product list is not sorted correctly by price")
                 .isEqualTo(true);
     }

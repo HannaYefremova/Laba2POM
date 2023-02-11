@@ -1,20 +1,21 @@
 package UI;
 
-import Framework.MainPage;
+import Framework.Components.HeaderComponent;
+import Framework.Helpers.StringHelper;
 import org.assertj.core.api.Assertions;
 import org.testng.annotations.Test;
 
 public class RegistrationTest extends BaseTest {
-    private final MainPage mainPage = new MainPage();
+    private final HeaderComponent header = new HeaderComponent();
 
     @Test
     public void registrationAccount() {
 
-        String pageName = mainPage.clickRegister()
-                .enterFirstName("Hanna")
-                .enterLastName("Yefremova")
-                .enterEmail("annakurdel@gmail.com")
-                .enterPassword("An142kurd")
+        String pageName = header.clickRegister()
+                .enterFirstName(StringHelper.generateInvalidFirstName())
+                .enterLastName(StringHelper.generateInvalidLastName())
+                .enterEmail(StringHelper.generateInvalidEmail())
+                .enterPassword(StringHelper.generateInvalidPassword())
                 .checkCheckboxPrivacyPolicy()
                 .clickContinueButton()
                 .pageName();

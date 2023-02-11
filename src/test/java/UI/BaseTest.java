@@ -8,8 +8,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
 public class BaseTest {
-
-
     @BeforeMethod(alwaysRun = true)
     public void setUp() {
         WebDriverManager.chromedriver().setup();
@@ -17,12 +15,10 @@ public class BaseTest {
         driver.get("https://demo.opencart.com/");
         driver.manage().window().maximize();
         BasePage.setDriver(driver);
-
     }
 
     @AfterMethod(alwaysRun = true)
     public void quite() {
-
         BasePage.getDriver().quit();
     }
 

@@ -1,5 +1,7 @@
 package UI;
 
+import Framework.Components.HeaderComponent;
+import Framework.Components.ProductListComponent;
 import Framework.ProductPage;
 import Framework.MainPage;
 import org.assertj.core.api.SoftAssertions;
@@ -7,34 +9,35 @@ import org.testng.annotations.Test;
 
 public class CurrencyTest extends BaseTest {
 
-    private final MainPage mainPage = new MainPage();
+    private final HeaderComponent header = new HeaderComponent();
+    private final ProductListComponent productList = new ProductListComponent();
     private final SoftAssertions softAssertions = new SoftAssertions();
 
     @Test
     public void correctPriceInDifferentCurrencyTest() {
-        String currentCurrency = mainPage.getCurrentCurrency();
+        String currentCurrency = header.getCurrentCurrency();
         if (!currentCurrency.equals("$")) {
-            mainPage.switchToDollarCurrency();
+            header.switchToCurrencyByName("$ US Dollar");
         }
-        ProductPage iphonePage = mainPage.clickOnTheIphoneCard();
-        String iphonePrice = iphonePage
-                .getPrice();
+
+        ProductPage productPage = productList.getProductByProductName("iPhone").clickOnProduct();
+
+        String iphonePrice = productPage.getPrice();
         softAssertions.assertThat(iphonePrice)
                 .as("Price is not equals expected")
                 .contains("123.20");
 
-        mainPage.switchToEuroCurrency();
-        iphonePrice = iphonePage.getPrice();
-
+        header.switchToCurrencyByName("€ Euro");
+        iphonePrice = productPage.getPrice();
         softAssertions.assertThat(iphonePrice)
                 .as("Price is not equals expected")
                 .contains("106.04");
-        mainPage.switchToPoundCurrency();
-        iphonePrice = iphonePage.getPrice();
+
+        header.switchToCurrencyByName("£ Pound Sterling");
+        iphonePrice = productPage.getPrice();
         softAssertions.assertThat(iphonePrice)
                 .as("Price is not equals expected")
                 .contains("95.32");
         softAssertions.assertAll();
     }
-
 }
