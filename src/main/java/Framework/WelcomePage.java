@@ -1,7 +1,8 @@
 package Framework;
 
 public class WelcomePage extends BasePage {
-    public String pageName() {
+    public String getPageTitle() {
+
         return getDriver().getTitle();
     }
 }

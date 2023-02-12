@@ -7,10 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
-import java.util.Iterator;
 import java.util.List;
-
-import static com.google.common.collect.Iterables.isEmpty;
 
 public class BasePage {
 
@@ -24,11 +21,11 @@ public class BasePage {
         driver = webDriver;
     }
 
-    public WebElement find(By locator) {
+    public static WebElement find(By locator) {
         return getDriver().findElement(locator);
     }
 
-    public List<WebElement> findAll(By locator) {
+    public static List<WebElement> findAll(By locator) {
         return getDriver().findElements(locator);
     }
 
@@ -57,35 +54,5 @@ public class BasePage {
         WebElement element = find(locator);
         Actions action = new Actions(driver);
         action.moveToElement(element).perform();
-    }
-
-    public static boolean isStringListSorted(List<String> listOfStrings) {
-        if (isEmpty(listOfStrings) || listOfStrings.size() == 1) return true;
-
-        Iterator<String> iter = listOfStrings.iterator();
-        String current, previous = iter.next();
-        while (iter.hasNext()) {
-            current = iter.next().toLowerCase();
-            if (previous.toLowerCase().compareTo(current) >= 0) {
-                return false;
-            }
-            previous = current;
-        }
-        return true;
-    }
-
-    public static boolean isDoubleListSorted(List<Double> doubleList) {
-        if (isEmpty(doubleList) || doubleList.size() == 1) return true;
-
-        Iterator<Double> iter = doubleList.iterator();
-        Double current, previous = iter.next();
-        while (iter.hasNext()) {
-            current = iter.next();
-            if (previous > current) {
-                return false;
-            }
-            previous = current;
-        }
-        return true;
     }
 }

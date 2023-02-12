@@ -1,24 +1,34 @@
 package Framework;
 
-import Framework.Components.ProductFilterComponent;
-import Framework.Components.ProductListComponent;
+import org.openqa.selenium.By;
 
 
 public class ProductsPage extends BasePage {
 
-    public ProductsPage() {
-        productFilter = new ProductFilterComponent();
-        productList = new ProductListComponent();
+    private final By showItemLocator = By.xpath("//select[@id='input-limit']");
+    private final By endTextLocator = By.xpath("//div[@class='col-sm-6 text-end']");
+    private final By sortByLocator = By.id("input-sort");
+
+    public String getEndText() {
+        return getDriver().findElement(endTextLocator).getText();
     }
 
-    ProductListComponent productList;
-    ProductFilterComponent productFilter;
-
-    public ProductListComponent GetProductList() {
-        return productList;
+    public void selectFromSortByDropdown(String value) {
+        selectByText(sortByLocator, value);
     }
 
-    public ProductFilterComponent GetProductFilter() {
-        return productFilter;
+    public String getValueFromSortByDropdown() {
+        return getSelectedValue(sortByLocator);
     }
+
+    public void selectFromCountDropDown(String value) {
+        selectByText(showItemLocator, value);
+    }
+
+    public String getValueFromCountDropDown() {
+        return getSelectedValue(showItemLocator);
+    }
+
+
 }
+

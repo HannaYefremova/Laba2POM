@@ -1,9 +1,7 @@
 package UI;
 
-import Framework.Components.FooterComponent;
 import Framework.MainPage;
 import org.assertj.core.api.Assertions;
-import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
@@ -11,12 +9,13 @@ import java.util.List;
 
 public class BrandsTest extends BaseTest {
 
-    private final FooterComponent footerComponent = new FooterComponent();
+    private final MainPage mainPage = new MainPage();
 
     @Test
     public void checkBrandsName() {
 
-        List<String> brandsList = footerComponent.clickBrandsLink()
+        List<String> brandsList = mainPage
+                .clickBrandsLink()
                 .getBrands();
 
         List<String> actualBrandsList = Arrays.asList("Apple", "Canon", "Hewlett-Packard", "HTC", "Palm", "Sony");

@@ -1,43 +1,43 @@
 package UI;
 
-import Framework.Components.HeaderComponent;
-import Framework.Components.ProductListComponent;
+import Framework.Components.ProductComponent;
+import Framework.Helpers.CurrencyHelper;
+import Framework.Helpers.ProductsHelpers;
 import Framework.ProductPage;
-import Framework.MainPage;
 import org.assertj.core.api.SoftAssertions;
 import org.testng.annotations.Test;
 
+import java.util.List;
+
 public class CurrencyTest extends BaseTest {
-
-    private final HeaderComponent header = new HeaderComponent();
-    private final ProductListComponent productList = new ProductListComponent();
-    private final SoftAssertions softAssertions = new SoftAssertions();
-
     @Test
     public void correctPriceInDifferentCurrencyTest() {
-        String currentCurrency = header.getCurrentCurrency();
+        String currentCurrency = CurrencyHelper.getCurrentCurrency();
         if (!currentCurrency.equals("$")) {
-            header.switchToCurrencyByName("$ US Dollar");
+            CurrencyHelper.switchToCurrencyByName("$ US Dollar");
         }
 
-        ProductPage productPage = productList.getProductByProductName("iPhone").clickOnProduct();
+        List<ProductComponent> productComponentList = ProductsHelpers.getAllProducts();
+        ProductPage productPage = ProductsHelpers.getProductByProductName(productComponentList, "iPhone")
+                .clickOnProduct();
 
+        SoftAssertions softAssertions = new SoftAssertions();
         String iphonePrice = productPage.getPrice();
         softAssertions.assertThat(iphonePrice)
                 .as("Price is not equals expected")
-                .contains("123.20");
+                .isEqualTo("123.20");
 
-        header.switchToCurrencyByName("€ Euro");
+        CurrencyHelper.switchToCurrencyByName("€ Euro");
         iphonePrice = productPage.getPrice();
         softAssertions.assertThat(iphonePrice)
                 .as("Price is not equals expected")
-                .contains("106.04");
+                .isEqualTo("106.04");
 
-        header.switchToCurrencyByName("£ Pound Sterling");
+        CurrencyHelper.switchToCurrencyByName("£ Pound Sterling");
         iphonePrice = productPage.getPrice();
         softAssertions.assertThat(iphonePrice)
                 .as("Price is not equals expected")
-                .contains("95.32");
+                .isEqualTo("95.32");
         softAssertions.assertAll();
     }
 }
